@@ -17,11 +17,28 @@
                 <a href="{{ url('/') }}">Home</a>
                 <a href="{{ route('mypage') }}">マイページ</a>
                 
-                <span>ログインユーザー：TTUU</span>
-                <form action="#" method="POST">
-                    @csrf
-                    <button type="submit">ログアウト</button>
-                </form>
+                @auth
+                    <span>ログインユーザー：TTUU</span>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">ログアウト</button>
+                    </form>
+                @endauth
+
+                @guest
+                    <!-- ログインしていない時 -->
+                    @if (Route::has('register') && request()->routeIs('login'))
+                        <!-- ログイン画面の時：新規登録ボタンを表示 -->
+                        <a href="{{ route('register') }}">新規登録</a>
+                    @elseif (request()->routeIs('register'))
+                        <!-- 新規登録画面の時：ログインボタンを表示 -->
+                        <a href="{{ route('login') }}">ログイン</a>
+                    @else
+                        <!-- それ以外の画面（トップページなど）の時 -->
+                        <a href="{{ route('login') }}">ログイン</a>
+                        <a href="{{ route('register') }}">新規登録</a>
+                    @endif
+                @endguest
             </nav>
         </div>
     </header>
