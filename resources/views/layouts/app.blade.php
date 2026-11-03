@@ -1,64 +1,80 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Cytech EC')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>
-                <a href="{{ url('/') }}">Cytech EC</a>
-            </h1>
-            <!--ログインとマイページ-->
-            <nav>
-                <a href="{{ url('/') }}">Home</a>
-                <a href="{{ route('mypage') }}">マイページ</a>
-                
-                @auth
-                    <span>ログインユーザー：TTUU</span>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit">ログアウト</button>
-                    </form>
-                @endauth
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                @guest
-                    <!-- ログインしていない時 -->
-                    @if (Route::has('register') && request()->routeIs('login'))
-                        <!-- ログイン画面の時：新規登録ボタンを表示 -->
-                        <a href="{{ route('register') }}">新規登録</a>
-                    @elseif (request()->routeIs('register'))
-                        <!-- 新規登録画面の時：ログインボタンを表示 -->
-                        <a href="{{ route('login') }}">ログイン</a>
-                    @else
-                        <!-- それ以外の画面（トップページなど）の時 -->
-                        <a href="{{ route('login') }}">ログイン</a>
-                        <a href="{{ route('register') }}">新規登録</a>
-                    @endif
-                @endguest
-            </nav>
-        </div>
-    </header>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
 
-    <main class="container">
-        <!--各画面の中身-->
-        @yield('content')
-    </main>
+                    </ul>
 
-    <footer>
-        <div class="container">
-            <div>
-                <a href="{{ route('contact') }}">お問い合わせ</a>
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
             </div>
-            <div>
-                <a href="{{ url('/') }}">Home</a>
-                <a href="{{ route('mypage') }}">マイページ</a>
-            </div>
-            <p>&copy; 2024 Company, Inc.</p>
-        </div>
-    </footer>
+        </nav>
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
 </body>
 </html>

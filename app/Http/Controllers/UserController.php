@@ -29,4 +29,10 @@ class UserController extends Controller
 
         return view('mypage', compact('user', 'listed_products', 'purchased_products'));
     }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('account.edit');
+    }
 }

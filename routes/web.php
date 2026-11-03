@@ -19,3 +19,8 @@ Route::get('/contact', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('account/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('account.edit');
+Auth::routes();
+
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
