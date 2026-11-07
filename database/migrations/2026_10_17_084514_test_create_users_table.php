@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name_kana')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->rememberToken();
             $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->timestamps();
         });

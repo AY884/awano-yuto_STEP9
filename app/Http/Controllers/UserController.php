@@ -12,7 +12,7 @@ class UserController extends Controller
     /**
      * マイページ表示
      */
-    public function showMypage()
+    public function Mypage()
     {
         $user = Auth::user();
 
@@ -27,7 +27,7 @@ class UserController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view('mypage', compact('user', 'listed_products', 'purchased_products'));
+        return view('user.mypage', compact('user', 'listed_products', 'purchased_products'));
     }
 
     public function edit()

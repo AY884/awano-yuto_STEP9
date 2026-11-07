@@ -7,20 +7,16 @@ Route::get('/', function () {
     return view('buyer_product.index');
 });
 
-// マイページ
-Route::get('/mypage', function () {
-    return view('user.mypage');
-})->name('mypage');
-
+Route::get('/mypage', [App\Http\Controllers\UserController::class, 'Mypage'])->name('mypage');
 // お問い合わせページ
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('account/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('account.edit');
 Auth::routes();
 
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
