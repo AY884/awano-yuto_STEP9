@@ -43,7 +43,7 @@
                         <td>{{ $product->description }}</td>
                         <td>{{ $product->price }}</td>
                         <td>
-                            <a href="{{ route('products.exhibitor_detail', $product->id) }}" class="btn btn-success btn-sm">詳細</a>
+                            <a href="{{ route('products.show', $product->id) }}" class="btn btn-success btn-sm">詳細</a>
                         </td>
                     </tr>
                 @empty

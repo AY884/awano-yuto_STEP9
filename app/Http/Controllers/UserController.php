@@ -33,6 +33,6 @@ class UserController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('account.edit');
+        return view('user.account_edit');
     }
 }
