@@ -4,12 +4,14 @@
 
 @section('content')
     <h2>商品一覧ページ</h2>
-    <p></p>
     
-    <!--テスト-->
     <ul>
-        <li>サンプル商品 A (1,000円)</li>
-        <li>サンプル商品 B (2,500円)</li>
-        <li>サンプル商品 C (5,000円)</li>
+        @forelse($products as $product)
+            <li>
+                {{ $product->product_name }} ({{ number_format($product->price) }}円)
+            </li>
+        @empty
+            <li>現在出品されている商品はありません。</li>
+        @endforelse
     </ul>
 @endsection

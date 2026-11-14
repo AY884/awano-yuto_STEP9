@@ -41,9 +41,18 @@ class ProductController extends Controller
         //登録完了後のリダイレクト
         return redirect()->route('index');
     }
+
     public function show($id)
     {
         $product = Product::find($id);
         return view('seller_product.show', compact('product'));
+    }
+
+    public function index()
+    {
+        //DBから商品を取得
+        $products = Product::all();
+        
+        return view('buyer_product.index', compact('products'));
     }
 }

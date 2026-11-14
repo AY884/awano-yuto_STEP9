@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
 
-Route::get('/', function () {
-    return view('buyer_product.index');
-});
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
 Route::get('/mypage', [App\Http\Controllers\UserController::class, 'Mypage'])->name('mypage');
 // お問い合わせページ
@@ -17,8 +15,6 @@ Auth::routes();
 
 Route::get('account/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('account.edit');
 Auth::routes();
-
-Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 
