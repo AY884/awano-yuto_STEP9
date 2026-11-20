@@ -51,7 +51,7 @@
 
         <!--ボタン-->
         <div class="d-flex gap-2 mt-4">
-            <a href="{{ route('index') }}" class="btn btn-secondary">戻る</a>
+            <a href="{{ route('mypage') }}" class="btn btn-secondary">戻る</a>
             <button type="submit" class="btn btn-primary">登録</button>
         </div>
     </form>

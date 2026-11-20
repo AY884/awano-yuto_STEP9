@@ -39,7 +39,7 @@ class ProductController extends Controller
         $product->save();
 
         //登録完了後のリダイレクト
-        return redirect()->route('index');
+        return redirect()->route('mypage');
     }
 
     public function detail($id)
