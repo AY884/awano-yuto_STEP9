@@ -42,10 +42,10 @@ class ProductController extends Controller
         return redirect()->route('index');
     }
 
-    public function show($id)
+    public function detail($id)
     {
         $product = Product::find($id);
-        return view('seller_product.show', compact('product'));
+        return view('buyer_product.detail', compact('product'));
     }
 
     public function index()
@@ -54,5 +54,32 @@ class ProductController extends Controller
         $products = Product::all();
         
         return view('buyer_product.index', compact('products'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::find($id);
+        if (!$product || $product->user_id !== auth()->id()) {
+        abort(403);
+    }
+        return view('seller_product.show', compact('product'));
+    }
+
+    public function edit(Product $product)
+    {
+        return view('seller_product.edit', compact('product'));
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product || $product->user_id !== auth()->id()) {
+        abort(403);
+        }
+
+        $product->delete();
+
+        return redirect()->route('mypage')->with('success', '商品を削除しました。');
     }
 }

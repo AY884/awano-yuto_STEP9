@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
+Route::get('/index', [ProductController::class, 'index']);
 
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
@@ -20,4 +21,10 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{id}', [ProductController::class, 'detail'])->name('products.detail');
+
+Route::get('/myproducts/{id}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+
+Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
