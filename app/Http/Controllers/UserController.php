@@ -29,10 +29,29 @@ class UserController extends Controller
 
         return view('user.mypage', compact('user', 'listed_products', 'purchased_products'));
     }
-
+    
+//アカウント編集
     public function edit()
     {
         $user = Auth::user();
-        return view('user.account_edit');
+
+        return view('user.account_edit', ['user' => $user]);
     }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'name_kanji' => ['required', 'string', 'max:255'],
+            'name_kana' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('mypage')->with('success', 'アカウント情報を更新しました。');
+    }
+
 }
