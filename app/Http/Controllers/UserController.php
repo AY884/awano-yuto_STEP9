@@ -46,7 +46,19 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'name_kanji' => ['required', 'string', 'max:255'],
             'name_kana' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+        ],
+        [
+            'required' => ':attributeは必須です。',
+            'email'    => ':attributeは正しいメールアドレス形式で入力してください。',
+            'max'      => ':attributeは:max文字以内で入力してください。',
+            'unique'   => 'この:attributeはすでに使われています。',
+        ],
+        [
+            'username'   => 'ユーザ名',
+            'email'      => 'Eメール',
+            'name_kanji' => '名前',
+            'name_kana'  => 'カナ',
         ]);
 
         $user->update($validated);

@@ -16,9 +16,9 @@
         @method('PATCH')
 
         <div class="mb-3">
-            <label for="username" class="form-label">ユーザ名</label>
-            <input type="text" id="username" name="username" class="form-control"
-                value="{{ old('username', $user->username) }}">
+            <label for="name" class="form-label">ユーザ名</label>
+            <input type="text" id="name" name="name" class="form-control"
+                value="{{ old('name', $user->name) }}">
         </div>
 
         <div class="mb-3">
@@ -28,15 +28,15 @@
         </div>
 
         <div class="mb-3">
-            <label for="name" class="form-label">名前</label>
-            <input type="text" id="name" name="name" class="form-control"
-                value="{{ old('name', $user->name) }}">
+            <label for="name_kanji" class="form-label">名前</label>
+            <input type="text" id="name_kanji" name="name_kanji" class="form-control"
+                value="{{ old('name_kanji', $user->name_kanji) }}">
         </div>
 
         <div class="mb-3">
-            <label for="kana" class="form-label">カナ</label>
-            <input type="text" id="kana" name="kana" class="form-control"
-                value="{{ old('kana', $user->kana) }}">
+            <label for="name_kana" class="form-label">カナ</label>
+            <input type="text" id="name_kana" name="name_kana" class="form-control"
+                value="{{ old('name_kana', $user->name_kana) }}">
         </div>
 
         <div class="d-flex gap-2 mt-4">
